@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verify_files.c                                     :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 16:07:51 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/10 19:21:37 by febranda         ###   ########.fr       */
+/*   Created: 2025/07/23 17:48:57 by febranda          #+#    #+#             */
+/*   Updated: 2025/07/31 13:28:21 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	verify_infile(const char *infile)
+char	*ft_strchr(const char *s, int c)
 {
-	int	fd;
-
-	fd = open(infile, O_RDONLY);
-	if (fd < 0)
+	while (*s != '\0')
 	{
-		perror("It`s not possible to open the infile");
-		return (0);
+		if (*s == (char)c)
+		{
+			return ((char *)s);
+		}
+		s++;
 	}
-	return (fd);
-}
-
-int	verify_outfile(const char *outfile)
-{
-	int	fd;
-
-	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
+	if ((char)c == '\0')
 	{
-		perror("It`s not possible to open the outfile");
-		return (0);
+		return ((char *)s);
 	}
-	return (1);
+	return (NULL);
 }

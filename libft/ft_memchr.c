@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verify_files.c                                     :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 16:07:51 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/10 19:21:37 by febranda         ###   ########.fr       */
+/*   Created: 2025/07/30 16:15:59 by febranda          #+#    #+#             */
+/*   Updated: 2025/07/30 17:18:33 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	verify_infile(const char *infile)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	fd;
+	size_t			i;
+	unsigned char	*ptr;
+	unsigned char	byte;
 
-	fd = open(infile, O_RDONLY);
-	if (fd < 0)
+	byte = (unsigned char)c;
+	ptr = (unsigned char *)s;
+	i = 0;
+	while (i < n)
 	{
-		perror("It`s not possible to open the infile");
-		return (0);
+		if (*ptr == byte)
+			return ((void *)ptr);
+		ptr++;
+		i++;
 	}
-	return (fd);
-}
-
-int	verify_outfile(const char *outfile)
-{
-	int	fd;
-
-	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		perror("It`s not possible to open the outfile");
-		return (0);
-	}
-	return (1);
+	return (NULL);
 }

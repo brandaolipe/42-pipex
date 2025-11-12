@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verify_files.c                                     :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 16:07:51 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/10 19:21:37 by febranda         ###   ########.fr       */
+/*   Created: 2025/07/30 12:33:25 by febranda          #+#    #+#             */
+/*   Updated: 2025/08/14 19:23:22 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-int	verify_infile(const char *infile)
+int	ft_atoi(const char *nptr)
 {
-	int	fd;
+	int	signal;
+	int	number;
 
-	fd = open(infile, O_RDONLY);
-	if (fd < 0)
+	signal = 1;
+	number = 0;
+	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
+		nptr++;
+	if (*nptr == '-' || *nptr == '+')
 	{
-		perror("It`s not possible to open the infile");
-		return (0);
+		if (*nptr == '-')
+			signal *= -1;
+		nptr++;
 	}
-	return (fd);
-}
-
-int	verify_outfile(const char *outfile)
-{
-	int	fd;
-
-	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
+	while (*nptr <= '9' && *nptr >= '0')
 	{
-		perror("It`s not possible to open the outfile");
-		return (0);
+		number = (number * 10) + (*nptr - 48);
+		nptr++;
 	}
-	return (1);
+	return (number * signal);
 }

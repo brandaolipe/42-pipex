@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verify_files.c                                     :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 16:07:51 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/10 19:21:37 by febranda         ###   ########.fr       */
+/*   Created: 2025/08/04 15:43:33 by febranda          #+#    #+#             */
+/*   Updated: 2025/08/15 14:50:25 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	verify_infile(const char *infile)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	int	fd;
+	unsigned int	len;
+	unsigned int	i;
 
-	fd = open(infile, O_RDONLY);
-	if (fd < 0)
+	i = 0;
+	len = ft_strlen(s);
+	while (i < len)
 	{
-		perror("It`s not possible to open the infile");
-		return (0);
+		(*f)(i, &s[i]);
+		i++;
 	}
-	return (fd);
-}
-
-int	verify_outfile(const char *outfile)
-{
-	int	fd;
-
-	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		perror("It`s not possible to open the outfile");
-		return (0);
-	}
-	return (1);
 }

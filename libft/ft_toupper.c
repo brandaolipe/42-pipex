@@ -1,39 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verify_files.c                                     :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 16:07:51 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/10 19:21:37 by febranda         ###   ########.fr       */
+/*   Created: 2025/07/23 13:03:08 by febranda          #+#    #+#             */
+/*   Updated: 2025/07/23 13:33:30 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-int	verify_infile(const char *infile)
+int	ft_toupper(int c)
 {
-	int	fd;
-
-	fd = open(infile, O_RDONLY);
-	if (fd < 0)
+	if (c >= 'a' && c <= 'z')
 	{
-		perror("It`s not possible to open the infile");
-		return (0);
+		c = c - 32;
 	}
-	return (fd);
-}
-
-int	verify_outfile(const char *outfile)
-{
-	int	fd;
-
-	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		perror("It`s not possible to open the outfile");
-		return (0);
-	}
-	return (1);
+	return (c);
 }

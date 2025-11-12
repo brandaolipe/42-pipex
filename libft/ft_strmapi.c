@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verify_files.c                                     :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 16:07:51 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/10 19:21:37 by febranda         ###   ########.fr       */
+/*   Created: 2025/08/04 14:00:59 by febranda          #+#    #+#             */
+/*   Updated: 2025/08/04 15:37:13 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	verify_infile(const char *infile)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int	fd;
+	char			*new_str;
+	unsigned int	len;
+	unsigned int	i;
 
-	fd = open(infile, O_RDONLY);
-	if (fd < 0)
+	i = 0;
+	if (!s || !f)
+		return (NULL);
+	len = ft_strlen(s);
+	new_str = malloc(len + 1);
+	if (!new_str)
+		return (NULL);
+	while (i < len)
 	{
-		perror("It`s not possible to open the infile");
-		return (0);
+		new_str[i] = (*f)(i, s[i]);
+		i++;
 	}
-	return (fd);
-}
-
-int	verify_outfile(const char *outfile)
-{
-	int	fd;
-
-	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		perror("It`s not possible to open the outfile");
-		return (0);
-	}
-	return (1);
+	new_str[len] = '\0';
+	return (new_str);
 }

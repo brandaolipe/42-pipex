@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verify_files.c                                     :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 16:07:51 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/10 19:21:37 by febranda         ###   ########.fr       */
+/*   Created: 2025/07/25 19:04:00 by febranda          #+#    #+#             */
+/*   Updated: 2025/08/14 19:32:13 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	verify_infile(const char *infile)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	int	fd;
+	size_t	i;
+	size_t	size_src;
 
-	fd = open(infile, O_RDONLY);
-	if (fd < 0)
+	size_src = ft_strlen(src);
+	i = 0;
+	if (size == 0)
+		return (size_src);
+	while (src[i] && i < size - 1)
 	{
-		perror("It`s not possible to open the infile");
-		return (0);
+		dest[i] = src[i];
+		i++;
 	}
-	return (fd);
-}
-
-int	verify_outfile(const char *outfile)
-{
-	int	fd;
-
-	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		perror("It`s not possible to open the outfile");
-		return (0);
-	}
-	return (1);
+	dest[i] = '\0';
+	return (size_src);
 }

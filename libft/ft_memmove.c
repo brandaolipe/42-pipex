@@ -1,39 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verify_files.c                                     :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 16:07:51 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/10 19:21:37 by febranda         ###   ########.fr       */
+/*   Created: 2025/07/31 13:35:59 by febranda          #+#    #+#             */
+/*   Updated: 2025/07/31 17:28:44 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	verify_infile(const char *infile)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	int	fd;
+	unsigned char		*d;
+	const unsigned char	*s;
+	size_t				i;
 
-	fd = open(infile, O_RDONLY);
-	if (fd < 0)
+	d = (unsigned char *)dest;
+	s = (unsigned char *)src;
+	if (d < s)
 	{
-		perror("It`s not possible to open the infile");
-		return (0);
+		i = 0;
+		while (i < n)
+		{
+			d[i] = s[i];
+			i++;
+		}
 	}
-	return (fd);
-}
-
-int	verify_outfile(const char *outfile)
-{
-	int	fd;
-
-	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
+	if (d > s)
 	{
-		perror("It`s not possible to open the outfile");
-		return (0);
+		i = n;
+		while (i > 0)
+		{
+			d[i - 1] = s[i - 1];
+			i--;
+		}
 	}
-	return (1);
+	return (dest);
 }

@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verify_files.c                                     :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 16:07:51 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/10 19:21:37 by febranda         ###   ########.fr       */
+/*   Created: 2025/07/30 13:34:23 by febranda          #+#    #+#             */
+/*   Updated: 2025/07/30 15:44:17 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	verify_infile(const char *infile)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	int	fd;
+	size_t			i;
+	unsigned char	byte;
+	unsigned char	*ptr;
 
-	fd = open(infile, O_RDONLY);
-	if (fd < 0)
+	i = 0;
+	ptr = (unsigned char *)s;
+	byte = (unsigned char)c;
+	while (i < n)
 	{
-		perror("It`s not possible to open the infile");
-		return (0);
+		ptr[i] = byte;
+		i++;
 	}
-	return (fd);
-}
-
-int	verify_outfile(const char *outfile)
-{
-	int	fd;
-
-	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		perror("It`s not possible to open the outfile");
-		return (0);
-	}
-	return (1);
+	return (s);
 }

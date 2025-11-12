@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: febranda <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 15:54:41 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/03 17:21:53 by febranda         ###   ########.fr       */
+/*   Created: 2025/08/02 14:28:45 by febranda          #+#    #+#             */
+/*   Updated: 2025/08/02 14:34:51 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	main(int	argc, char **argv)
+void	ft_putstr_fd(char *s, int fd)
 {
-	
+	while (*s)
+	{
+		ft_putchar_fd(*s, fd);
+		s++;
+	}
 }
