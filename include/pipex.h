@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verify_files.c                                     :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 16:07:51 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/12 18:44:52 by febranda         ###   ########.fr       */
+/*   Created: 2025/11/03 17:22:33 by febranda          #+#    #+#             */
+/*   Updated: 2025/11/19 18:51:54 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#ifndef PIPEX_H
+# define PIPEX_H
 
-int	get_infile_fd(const char *infile)
-{
-	int	fd;
+# include <stdio.h>
 
-	fd = open(infile, O_RDONLY);
-	if (fd < 0)
-	{
-		perror("It`s not possible to open the infile");
-		return (0);
-	}
-	return (fd);
-}
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include "../libft/libft.h"
 
-int	get_outfile_fd(const char *outfile)
-{
-	int	fd;
+int		get_infile_fd(const char *infile);
+int		get_outfile_fd(const char *outfile);
+void	error_message(void);
 
-	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		perror("It`s not possible to open the outfile");
-		return (0);
-	}
-	return (1);
-}
+#endif
