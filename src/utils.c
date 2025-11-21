@@ -6,14 +6,14 @@
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:28:42 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/19 18:58:02 by febranda         ###   ########.fr       */
+/*   Updated: 2025/11/21 15:46:54 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void    error_message()
+void	error_message(void)
 {
-    perror("Error");
+	perror("Error");
 	exit(EXIT_FAILURE);
 }
