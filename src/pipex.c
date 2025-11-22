@@ -15,8 +15,6 @@
 int	main(int argc, char **argv, char **envp)
 {
 	int		pipe_fd[2];
-	pid_t	pid1;
-	pid_t	pid2;
 
 	if (argc == 5)
 	{
@@ -31,15 +29,21 @@ int	main(int argc, char **argv, char **envp)
 
 int	pipex(char **argv, char **envp, int *pipe_fd)
 {
+	pid_t	pid1;
+	pid_t	pid2;
+
 	pid1 = fork();
 	if (pid1 == -1)
 		error_message();
-	if (pid1 != 0)
-		pid2 = fork();
 	if (pid1 == 0)
-		child_process(argv, envp, pipe_fd);
+		child_process_1(argv, envp, pipe_fd);
+	pid2 = fork();
+	if (pid2 == -1)
+		error_message();
 	if (pid2 == 0)
-		child_process(argv, envp, pipe_fd);
+		child_process_2(argv, envp, pipe_fd);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
 	return (0);
 }
 
