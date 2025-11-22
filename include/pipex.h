@@ -6,22 +6,26 @@
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:22:33 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/19 18:51:54 by febranda         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:48:57 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <stdio.h>
-
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
 
-int		get_infile_fd(const char *infile);
-int		get_outfile_fd(const char *outfile);
+//int		get_infile_fd(const char *infile);
+//int		get_outfile_fd(const char *outfile);
+int		pipex(char **argv, char **envp, int *pipe_fd);
+char	**get_paths(char **envp);
+void	child_process_1(char *cmd1, char **envp, int *pipe_fd, char *infile);
+void	child_process_2(char *cmd2, char **envp, int *pipe_fd, char *outfile);
 void	error_message(void);
 
 #endif
