@@ -6,7 +6,7 @@
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 15:54:41 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/22 19:12:10 by febranda         ###   ########.fr       */
+/*   Updated: 2025/11/23 18:35:26 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,19 @@ char	**get_paths(char **envp)
 void	child_process_1(char *cmd1, char **envp, int *pipe_fd, char *infile)
 {
 	char	**paths;
+	char	*exec_path;
 
 	paths = get_paths(envp);
 	if (!paths)
+		error_message();
+	exec_path = handle_path_and_cmd(cmd1, paths);
+	if (!exec_path)
 		error_message();
 	//dup2()
 	//dup2()
 	//execute()
 	free(paths);
+	free(exec_path);
 }
 
 void	child_process_2(char *cmd2, char **envp, int *pipe_fd, char *outfile)
