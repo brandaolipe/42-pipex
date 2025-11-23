@@ -6,7 +6,7 @@
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:22:33 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/22 18:48:57 by febranda         ###   ########.fr       */
+/*   Updated: 2025/11/23 18:36:59 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ char	**get_paths(char **envp);
 void	child_process_1(char *cmd1, char **envp, int *pipe_fd, char *infile);
 void	child_process_2(char *cmd2, char **envp, int *pipe_fd, char *outfile);
 void	error_message(void);
+char	*handle_path_and_cmd(char *cmd, char **paths)
 
 #endif
