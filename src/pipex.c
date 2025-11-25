@@ -6,7 +6,7 @@
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 15:54:41 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/23 18:35:26 by febranda         ###   ########.fr       */
+/*   Updated: 2025/11/25 18:42:25 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	main(int argc, char **argv, char **envp)
 {
 	int		pipe_fd[2];
-	char	*path;
 
 	if (argc == 5)
 	{
@@ -75,22 +74,49 @@ void	child_process_1(char *cmd1, char **envp, int *pipe_fd, char *infile)
 {
 	char	**paths;
 	char	*exec_path;
+	int		fd;
 
+	close(pipe_fd[0]);
 	paths = get_paths(envp);
 	if (!paths)
 		error_message();
 	exec_path = handle_path_and_cmd(cmd1, paths);
 	if (!exec_path)
 		error_message();
-	//dup2()
-	//dup2()
-	//execute()
+	fd = open(infile, O_RDONLY);
+	if (fd < 0)
+		error_message();
+	dup2(fd, STDIN_FILENO);
+	dup2(pipe_fd[1], STDOUT_FILENO);
+	close(pipe_fd[1]);
+	execute_cmd(exec_path, cmd1, envp);
 	free(paths);
 	free(exec_path);
+	error_message();
 }
 
 void	child_process_2(char *cmd2, char **envp, int *pipe_fd, char *outfile)
 {
+	char	**paths;
+	char	*exec_path;
+	int		fd;
+
+	close(pipe_fd[1]);
+	paths = get_paths(envp);
+	if (!paths)
+		error_message();
+	exec_path = handle_path_and_cmd(cmd2, paths);
+	if (!exec_path)
+		error_message();
+	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	//Se fd não abrir
+	dup2(pipe_fd[0], STDIN_FILENO);
+	dup2(fd, STDOUT_FILENO);
+	close(pipe_fd[0]);
+	execute_cmd(exec_path, cmd2, envp);
+	free(paths);
+	free(exec_path);
+	error_message();
 }
 
 //int	get_infile_fd(const char *infile)
@@ -117,4 +143,4 @@ void	child_process_2(char *cmd2, char **envp, int *pipe_fd, char *outfile)
 //		return (0);
 //	}
 //	return (1);
-//}
+//
