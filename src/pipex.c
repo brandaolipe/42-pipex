@@ -6,7 +6,7 @@
 /*   By: febranda <febranda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 15:54:41 by febranda          #+#    #+#             */
-/*   Updated: 2025/11/25 18:42:25 by febranda         ###   ########.fr       */
+/*   Updated: 2025/11/26 20:35:49 by febranda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ int	pipex(char **argv, char **envp, int *pipe_fd)
 	if (pid1 == -1)
 		error_message();
 	if (pid1 == 0)
-		child_process_1(argv[3], envp, pipe_fd, infile);
+		child_process_1(argv[2], envp, pipe_fd, infile);
 	pid2 = fork();
 	if (pid2 == -1)
 		error_message();
 	if (pid2 == 0)
-		child_process_2(argv[4], envp, pipe_fd, outfile);
+		child_process_2(argv[3], envp, pipe_fd, outfile);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
 	return (0);
@@ -89,6 +91,7 @@ void	child_process_1(char *cmd1, char **envp, int *pipe_fd, char *infile)
 	dup2(fd, STDIN_FILENO);
 	dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[1]);
+	close(fd);
 	execute_cmd(exec_path, cmd1, envp);
 	free(paths);
 	free(exec_path);
@@ -113,34 +116,9 @@ void	child_process_2(char *cmd2, char **envp, int *pipe_fd, char *outfile)
 	dup2(pipe_fd[0], STDIN_FILENO);
 	dup2(fd, STDOUT_FILENO);
 	close(pipe_fd[0]);
+	close(fd);
 	execute_cmd(exec_path, cmd2, envp);
 	free(paths);
 	free(exec_path);
 	error_message();
 }
-
-//int	get_infile_fd(const char *infile)
-//{
-//	int	fd;
-//
-//	fd = open(infile, O_RDONLY);
-//	if (fd < 0)
-//	{
-//		perror("It`s not possible to open the infile");
-//		return (0);
-//	}
-//	return (fd);
-//}
-//
-//int	get_outfile_fd(const char *outfile)
-//{
-//	int	fd;
-//
-//	fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-//	if (fd < 0)
-//	{
-//		perror("It`s not possible to open the outfile");
-//		return (0);
-//	}
-//	return (1);
-//
